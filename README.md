@@ -1,5 +1,8 @@
 # Pump-requests
 
+[![Build Status](https://travis-ci.org/Bloomca/pump-requests.svg?branch=master)](https://travis-ci.org/Bloomca/pump-requests)
+[![npm version](https://badge.fury.io/js/pump-requests.svg)](https://badge.fury.io/js/pump-requests)
+
 Let's say we have an endpoint, which receives list of ids as a parameter to check their status (for example, list of favourites). However, we would like to call status of each item individually (think about React component, which will get all needed information for a component). This library does exactly one thing – it allows you to treat such requests as they were requests to check status of a single item. They are added into internal data structures, and each addition triggers debounced timer, so after defined time of silence it will invoke given function, passing list of all ids it collected.
 
 ```javascript
