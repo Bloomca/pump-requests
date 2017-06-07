@@ -45,7 +45,7 @@ function pumpRequests(fn, _a) {
         ids: [],
         promises: []
     };
-    return debounce.bind(null, { debounceObject: debounceObject }, parseParams);
+    return debounce.bind(null, debounceObject, parseParams);
 }
 function debounce(debounceObject, parseParams, id) {
     var _this = this;

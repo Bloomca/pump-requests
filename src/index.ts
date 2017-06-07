@@ -25,7 +25,7 @@ function pumpRequests(
     promises: []
   };
 
-  return debounce.bind(null, {debounceObject}, parseParams);
+  return debounce.bind(null, debounceObject, parseParams);
 }
 
 function debounce(debounceObject: IDebounceObject, parseParams: ParseParams, id: any): Promise<any> {

@@ -1,5 +1,5 @@
 import { sleep } from 'delounce';
-import pumpRequests from '../src/index';
+import pumpRequests from '../src';
 
 test('pumpRequests should create resolve single calls with correct reply', async () => {
   const checkFavourite = pumpRequests(async (ids) => {
