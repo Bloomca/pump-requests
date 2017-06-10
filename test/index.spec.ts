@@ -34,3 +34,20 @@ test('pumpRequests should collect all ids with which fn was invoked', async () =
 
   expect(args).toEqual([5, 10]);
 });
+
+test('pumpRequests should debounce new requests', async () => {
+  let time = Date.now();
+  const checkFavourite = pumpRequests(() => {
+    time = Date.now() - time;
+    return Promise.resolve(true);
+  });
+
+  const promise = checkFavourite();
+  await sleep(40);
+  checkFavourite();
+  await sleep(40);
+  checkFavourite();
+  await sleep(40);
+  await promise;
+  expect(time).toBeGreaterThan(120);
+});
