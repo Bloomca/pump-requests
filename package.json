@@ -1,6 +1,6 @@
 {
   "name": "pump-requests",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Library to treat a single request with multiple ids as many separate",
   "jsnext:main": "lib/es2015/index.js",
   "module": "lib/es2015/index.js",
@@ -14,11 +14,13 @@
     "package.json"
   ],
   "scripts": {
-    "prepublish": "npm run build",
+    "prepublish": "npm run test && npm run build",
     "build:es2015": "tsc -P tsconfig.json",
     "build:es2015:watch": "tsc --watch -P tsconfig.json",
     "build:commonjs": "tsc -P tsconfig.commonjs.json",
-    "build:dist": "browserify lib/commonjs/index.js -o dist/pump-requests.js && uglifyjs dist/pump-requests.js -o dist/pump-requests.min.js",
+    "build:umd": "cross-env NODE_ENV=development rollup -c -i lib/es2015/index.js -o dist/pump-requests.js",
+    "build:umd:min": "cross-env NODE_ENV=production rollup -c -i lib/es2015/index.js -o dist/pump-requests.min.js",
+    "build:dist": "npm run build:umd && npm run build:umd:min",
     "build": "npm run build:es2015 && npm run build:commonjs && npm run build:dist",
     "test": "jest",
     "test:watch": "jest --watch"
@@ -42,9 +44,14 @@
   "homepage": "https://github.com/Bloomca/pump-requests#readme",
   "devDependencies": {
     "@types/sinon": "^2.2.2",
+    "babel-preset-es2015-rollup": "^3.0.0",
     "browserify": "^14.3.0",
+    "cross-env": "^5.0.1",
     "delounce": "^0.3.0",
     "jest": "^20.0.4",
+    "rollup": "^0.43.0",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-replace": "^1.1.1",
     "sinon": "^2.3.2",
     "tslint": "^5.3.2",
     "tslint-microsoft-contrib": "^5.0.0",
@@ -65,5 +72,7 @@
       "**/test/*.(ts|tsx|js)"
     ]
   },
-  "dependencies": {}
+  "dependencies": {
+    "rollup-plugin-uglify": "1.0.1"
+  }
 }
